@@ -1,60 +1,43 @@
 package com.godofparking.jeogida.controller;
 
 import com.godofparking.jeogida.domain.User;
-import com.godofparking.jeogida.exception.NotFoundException;
-import com.godofparking.jeogida.service.UserService;
-import org.apache.coyote.Response;
-import org.springframework.http.ResponseEntity;
+import com.godofparking.jeogida.mapper.UserMapper;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 public class UserController {
-    private UserService service;
 
-    public UserController(UserService service){
-        this.service = service;
+    private UserMapper mapper;
+
+    public UserController(UserMapper mapper){
+        this.mapper = mapper;
     }
 
-    @GetMapping("/users")
-    public List<User> retrieveAllusers(){
-        return service.findAll();
+    @GetMapping("/user")
+    public List<User> getAllUsers(){
+        return mapper.getAllUsers();
     }
 
-
-    @GetMapping("/users/{id}")
-    public User retrieveUser(@PathVariable int id){
-        User user =  service.findOne(id);
-
-        if(user == null){
-            throw new NotFoundException(String.format("ID[%s] not found", id));
-        }
-
-        return user;
+    @GetMapping("/user/{id}")
+    public User getUser(@PathVariable("id") Integer id){
+        return mapper.getUser(id);
     }
 
-    @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user){
-        User savedUser = service.save(user);
-
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedUser.getId())
-                .toUri();
-
-        return ResponseEntity.created(location).build();
+    @PutMapping("/user")
+    public User createUser(@PathVariable("id") Integer id, @PathVariable("email") String email, @PathVariable("nickname") String nickname, @PathVariable("password") String password, @PathVariable("createdAt") Date createdAt, @PathVariable("updatedAt")Date updatedAt){
+        return mapper.createUser(id, email, nickname, password, createdAt, updatedAt);
     }
 
-    @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable int id){
-        User user = service.deleteById(id);
-
-        if(user == null){
-            throw new NotFoundException(String.format("ID[%s] not found", id));
-        }
+    @PostMapping("/user/id")
+    public User updateUser(@PathVariable("name") String name, @PathVariable("id") Integer id){
+        return mapper.updateUser(name, id);
     }
 
+    @DeleteMapping("/user/id")
+    public User deleteUser(@PathVariable("id") Integer id){
+        return mapper.deleteUser(id);
+    }
 }
