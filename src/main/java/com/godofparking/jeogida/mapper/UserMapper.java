@@ -2,25 +2,27 @@ package com.godofparking.jeogida.mapper;
 
 import com.godofparking.jeogida.domain.User;
 import org.apache.ibatis.annotations.*;
-
-import java.util.Date;
 import java.util.List;
 
 @Mapper
 public interface UserMapper {
 
-    @Select("select * from user")
-    List<User> getAllUsers();
+    @Insert("INSERT INTO user(email, nickname, password) VALUES(#{user.email}, #{user.nickname}, #{user.password})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    int insert(@Param("user") User user);
 
-    @Select("select * from user where id = #{id}")
-    User getUser(@Param("id") Integer id);
+    @Select("SELECT * FROM user WHERE id=#{id}")
+    @Results(id="UserMap", value={
+            @Result(property="id", column="id"),
+            @Result(property="email", column="email"),
+            @Result(property="nickname", column="nickname"),
+            @Result(property="password", column="password")
+    })
+    User getById(@Param("id") int id);
 
-    @Insert("insert into  user values(#{id}, #{email}, #{nickname}, #{password}, #{createdAt}, #{updatedAt}")
-    User createUser(@Param("id") Integer id, @Param("email") String email, @Param("nickname") String nickname, @Param("password") String password, @Param("createdAt") Date createdAt, @Param("updatedAt")Date updatedAt);
+    @ResultMap("UserMap")
+    @Select("SELECT * FROM user")
+    List<User> getAll();
 
-    @Update("update user set name = #{name} where id = #{id}")
-    User updateUser(@Param("name") String name, @Param("id") Integer id);
 
-    @Delete("delete from user where id = #{id}")
-    User deleteUser(@Param("id") Integer id);
 }
