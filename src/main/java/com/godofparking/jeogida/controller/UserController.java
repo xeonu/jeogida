@@ -5,7 +5,6 @@ import com.godofparking.jeogida.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
 
 @RestController
@@ -26,7 +25,6 @@ public class UserController {
         return user;
     }
 
-
     @GetMapping("")
     public List<User> get(){
         return mapper.getAll();
@@ -38,6 +36,14 @@ public class UserController {
         return mapper.getById(id);
     }
 
+    @DeleteMapping("/{id}")
+    public int delete(@PathVariable("id") int id){
+        return mapper.deleteUser(id);
+    }
 
-
+    //구현실패
+    @PutMapping("")
+    public int updateNickname(@PathVariable("id") int id, @PathVariable("nickname") String nickname){
+        return mapper.updateUserNickname(id, nickname);
+    }
 }

@@ -24,5 +24,11 @@ public interface UserMapper {
     @Select("SELECT * FROM user")
     List<User> getAll();
 
+    @Delete("DELETE FROM user WHERE id = #{id}")
+    int deleteUser(@Param("id") int id);
+
+    //구현실패
+    @Update("UPDATE user SET nickname = #{nickname} WHERE id = #{id}")
+    int updateUserNickname( @Param("id") int id, @Param("nickname") String nickname);
 
 }

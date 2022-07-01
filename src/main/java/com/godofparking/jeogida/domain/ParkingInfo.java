@@ -3,7 +3,6 @@ package com.godofparking.jeogida.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -12,11 +11,7 @@ public class ParkingInfo {
 
     private String number;
 
-    private Boolean isParked;
+    private Boolean is_parked; // 0: 비어있음 1: 주차됨
 
-    private Date parkedAt;
-
-    private Date leftAt;
-
-    private Integer parkingLotId;
+    private Integer parking_lot_id;
 }

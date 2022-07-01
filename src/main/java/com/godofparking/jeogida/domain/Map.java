@@ -15,7 +15,4 @@ public class Map {
 
     private String path;
 
-    private Date createdAt;
-
-    private Date updatedAt;
 }

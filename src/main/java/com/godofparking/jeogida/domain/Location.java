@@ -14,7 +14,4 @@ public class Location {
 
     private Integer total;
 
-    private Date createdAt;
-
-    private Date updatedAt;
 }

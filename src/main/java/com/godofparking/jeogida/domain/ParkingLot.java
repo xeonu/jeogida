@@ -12,11 +12,7 @@ public class ParkingLot {
 
     private Integer number;
 
-    private Date createdAt;
+    private Integer location_id;
 
-    private Date updatedAt;
-
-    private Integer locationId;
-
-    private Integer mapId;
+    private Integer map_id;
 }

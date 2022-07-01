@@ -8,7 +8,7 @@ import lombok.Data;
 public class FavoriteLocation {
     private Integer id;
 
-    private Integer userId;
+    private Integer user_id;
 
-    private Integer locationId;
+    private Integer location_id;
 }

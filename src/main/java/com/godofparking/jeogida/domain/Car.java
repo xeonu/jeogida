@@ -10,11 +10,9 @@ import java.util.Date;
 public class Car {
     private Integer id;
 
+    private String number;
+
     private String name;
 
-    private Date createAt;
-
-    private Date updatedAt;
-
-    private Integer userId;
+    private Integer user_id;
 }
